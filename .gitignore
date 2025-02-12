@@ -1,0 +1,10 @@
+*.dot
+*.out
+*.onnx
+*.zip
+*.png
+*.txt
+*.ll
+*.o
+*.S
+*.vnnlib
