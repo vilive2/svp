@@ -1,10 +1,11 @@
 *.dot
 *.out
-*.onnx
+# *.onnx
+# *.vnnlib
 *.zip
 *.png
 *.txt
 *.ll
 *.o
 *.S
-*.vnnlib
+__pycache__
