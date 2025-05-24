@@ -9,3 +9,7 @@
 *.o
 *.S
 __pycache__
+NuSMV-2.7.0
+NuSMV-2.7.0-linux64
+abc
+cbmc

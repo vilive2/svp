@@ -1,0 +1,3 @@
+check_ltlspec -p "G (request=TRUE)"
+check_ltlspec -p "G (request=TRUE & !(status=busy))"
+check_ltlspec -p "G (request=TRUE -> X (status=busy))"

@@ -1,0 +1,24 @@
+MODULE light(other_state)
+
+VAR
+
+	state: {r, y, g};
+
+ASSIGN
+	init(state) := r;
+	next(state) := case
+	                      state=r & other_state=r: {r,y};
+			      state=y : g;
+			      state=g : {g,r};
+			      TRUE: state;
+			      esac;
+
+
+MODULE main 
+
+VAR
+	tl1:  light(tl2.state);
+	tl2:  light(tl1.state);
+
+LTLSPEC
+	! F (tl1.state = g) & (tl2.state != g);

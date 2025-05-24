@@ -1,0 +1,1 @@
+check_ltlspec -p "G (a >= 10 -> X (X b >= 12))"

@@ -1,0 +1,3 @@
+print_reachable_states -v
+pick_state -i (initial state selection)
+simulate -i -k 15 (simulate for 15 steps)

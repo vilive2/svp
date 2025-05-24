@@ -1,0 +1,10 @@
+MODULE main
+
+VAR
+	in1: boolean;
+	in2: boolean;
+	out: boolean;
+
+ASSIGN
+	init(out) := TRUE;
+	next(out) := ! (in1 & in2);

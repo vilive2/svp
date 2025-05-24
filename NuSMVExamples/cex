@@ -1,0 +1,58 @@
+-> State: 1.1 <-
+    man = FALSE
+    goat = FALSE
+    wolf = FALSE
+    cabbage = FALSE
+    carry = 0
+  -> State: 1.2 <-
+    man = TRUE
+    goat = TRUE
+    carry = g
+	cabbage = FALSE
+	wolf = FALSE
+  -> State: 1.3 <-
+    man = FALSE
+	goat = TRUE
+    carry = 0
+	cabbage = FALSE
+	wolf = FALSE
+  -> State: 1.4 <-
+    man = TRUE
+    cabbage = TRUE
+    carry = c
+  -> State: 1.5 <-
+    man = FALSE
+    goat = FALSE
+    carry = g
+  -> State: 1.6 <-
+    man = TRUE
+    wolf = TRUE
+    carry = w
+  -> State: 1.7 <-
+    man = FALSE
+    carry = 0
+  -> State: 1.8 <-
+    man = TRUE
+    goat = TRUE
+    carry = g
+  -> State: 1.9 <-
+    man = FALSE
+    cabbage = FALSE
+    carry = c
+  -> State: 1.10 <-
+    man = TRUE
+    carry = 0
+  -> State: 1.11 <-
+    man = FALSE
+    wolf = FALSE
+    carry = w
+  -> State: 1.12 <-
+    man = TRUE
+    carry = 0
+  -> State: 1.13 <-
+    man = FALSE
+    goat = FALSE
+    carry = g
+  -> State: 1.14 <-
+    carry = 0
+

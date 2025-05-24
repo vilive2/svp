@@ -1,0 +1,69 @@
+MODULE program1(x1)
+
+VAR
+	location : {l1, l2};
+
+ASSIGN
+	init(location) := l1;
+	next(location) := case
+				(location = l1) & x1 < 100 : l2;
+				(location = l2) : l1;
+				TRUE : location;
+				esac;
+	next(x1) := case
+				(location=l2) & x1 < 1000: x1 + 1;
+				TRUE: x1;
+			esac;
+
+MODULE program2(x2)
+
+VAR
+	location: {m1, m2};
+
+ASSIGN
+	init(location) := m1;
+	next(location) := case
+				(location = m1) & x2 > 0: m2;
+				(location = m2) : m1;
+				TRUE : location;
+				esac;
+
+	next(x2) := case
+			(location = m2) & (x2 > -1000): x2 - 1;
+			TRUE: x2;
+			esac;
+
+
+MODULE program3(x3)
+
+VAR
+	location: {n1,n2};
+
+ASSIGN
+	init(location) := n1;
+	next(location) := case
+				(location = n1) & x3=100: n2;
+				(location = n2) : n1;
+				TRUE: location;
+				esac;
+
+	next(x3) := case
+				(location = n2) : 0 ;
+				TRUE : x3;
+				esac;
+
+
+
+MODULE main
+
+VAR
+	x: -1000 .. 1000;
+	t1 : process program1(x);
+	t2 : process program2(x);
+	t3 : process program3(x);
+
+ASSIGN 
+       init(x) := 0;
+
+LTLSPEC
+	G (x >= 0);

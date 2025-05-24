@@ -1,0 +1,146 @@
+MODULE thread(i, requested, holding)
+
+VAR
+    state: {idle, wait, execute, exit};
+
+ASSIGN
+    init(state) := idle;
+    next(state) := case
+        state=idle & requested[i][1]=FALSE & requested[i][2]=FALSE & requested[i][3]=FALSE : {idle, execute};
+        state=wait & requested[i][1]=FALSE & requested[i][2]=FALSE & requested[i][3]=FALSE : execute;
+        state=idle & (requested[i][1]=TRUE | requested[i][2]=TRUE | requested[i][3]=TRUE) : wait;
+        state=execute : {execute, exit};
+        state=exit : idle;
+        TRUE: state;
+        esac;
+
+    next(requested[i][1]) := case
+        requested[i][1]=TRUE & 
+        holding[1][1]=FALSE & 
+        holding[2][1]=FALSE & 
+        holding[3][1]=FALSE &
+        holding[4][1]=FALSE &
+        holding[5][1]=FALSE &
+        holding[6][1]=FALSE &
+        holding[7][1]=FALSE &
+        holding[8][1]=FALSE : FALSE;
+        TRUE : requested[i][1];
+        esac;
+    
+    next(requested[i][2]) := case
+        requested[i][2]=TRUE & 
+        holding[1][2]=FALSE & 
+        holding[2][2]=FALSE & 
+        holding[3][2]=FALSE &
+        holding[4][2]=FALSE &
+        holding[5][2]=FALSE &
+        holding[6][2]=FALSE &
+        holding[7][2]=FALSE &
+        holding[8][2]=FALSE : FALSE;
+        TRUE : requested[i][2];
+        esac;
+    
+    next(requested[i][3]) := case
+        requested[i][3]=TRUE & 
+        holding[1][3]=FALSE & 
+        holding[2][3]=FALSE & 
+        holding[3][3]=FALSE &
+        holding[4][3]=FALSE &
+        holding[5][3]=FALSE &
+        holding[6][3]=FALSE &
+        holding[7][3]=FALSE &
+        holding[8][3]=FALSE : FALSE;
+        TRUE : requested[i][3];
+        esac;
+
+    next(holding[i][1]) := case
+        requested[i][1]=TRUE & 
+        holding[1][1]=FALSE & 
+        holding[2][1]=FALSE & 
+        holding[3][1]=FALSE &
+        holding[4][1]=FALSE &
+        holding[5][1]=FALSE &
+        holding[6][1]=FALSE &
+        holding[7][1]=FALSE &
+        holding[8][1]=FALSE : TRUE;
+        state=exit : FALSE;
+        TRUE : holding[i][1];
+        esac;
+    
+    next(holding[i][2]) := case
+        requested[i][2]=TRUE & 
+        holding[1][2]=FALSE & 
+        holding[2][2]=FALSE & 
+        holding[3][2]=FALSE &
+        holding[4][2]=FALSE &
+        holding[5][2]=FALSE &
+        holding[6][2]=FALSE &
+        holding[7][2]=FALSE &
+        holding[8][2]=FALSE : TRUE;
+        state=exit : FALSE;
+        TRUE : holding[i][2];
+        esac;
+    
+    next(holding[i][3]) := case
+        requested[i][3]=TRUE & 
+        holding[1][3]=FALSE & 
+        holding[2][3]=FALSE & 
+        holding[3][3]=FALSE &
+        holding[4][3]=FALSE &
+        holding[5][3]=FALSE &
+        holding[6][3]=FALSE &
+        holding[7][3]=FALSE &
+        holding[8][3]=FALSE : TRUE;
+        state=exit : FALSE;
+        TRUE : holding[i][3];
+        esac;
+
+MODULE main
+
+VAR
+    requested: array 1..8 of array 1..3 of boolean;
+    holding: array 1..8 of array 1..3 of boolean;
+    p1: process thread(1, requested, holding);
+    p2: process thread(2, requested, holding);
+    p3: process thread(3, requested, holding);
+    p4: process thread(4, requested, holding);
+    p5: process thread(5, requested, holding);
+    p6: process thread(6, requested, holding);
+    p7: process thread(7, requested, holding);
+    p8: process thread(8, requested, holding);
+
+ASSIGN
+    init(holding[1][1]) := TRUE;
+    init(requested[1][2]) := TRUE;
+
+    init(holding[2][2]) := TRUE;
+    init(requested[2][3]) := TRUE;
+
+    init(holding[3][3]) := TRUE;
+    init(requested[3][1]) := TRUE;
+
+    init(holding[4][2]) := TRUE;
+    init(requested[4][3]) := TRUE;
+
+    init(holding[5][3]) := TRUE;
+    init(requested[5][1]) := TRUE;
+
+    init(holding[6][1]) := TRUE;
+    init(requested[6][2]) := TRUE;
+
+    init(holding[7][3]) := TRUE;
+    init(requested[7][1]) := TRUE;
+
+    init(holding[8][2]) := TRUE;
+    init(requested[8][3]) := TRUE;
+
+LTLSPEC
+	G ((p1.state=wait -> F p1.state = execute) &
+       (p2.state=wait -> F p2.state = execute) &
+       (p3.state=wait -> F p3.state = execute) &
+       (p4.state=wait -> F p4.state = execute) &
+       (p5.state=wait -> F p5.state = execute) &
+       (p6.state=wait -> F p6.state = execute) &
+       (p7.state=wait -> F p7.state = execute) &
+       (p8.state=wait -> F p8.state = execute)
+    )

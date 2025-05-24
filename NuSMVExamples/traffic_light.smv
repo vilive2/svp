@@ -1,0 +1,4 @@
+MODULE tl(other)
+VAR
+    light : {r, g, y}
+    

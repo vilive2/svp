@@ -1,0 +1,29 @@
+MODULE program(semaphore)
+
+VAR
+	location: {nc, w, c};
+
+ASSIGN 
+       init(location) := nc;
+       next(location) := case
+					location = nc : w;
+					location = w & semaphore : c;
+					location = c : nc;
+					TRUE: location;
+				esac;	
+       next(semaphore) := case
+					 location = w: FALSE;
+				         location = c: TRUE;
+					 TRUE: semaphore;
+				      esac;
+
+
+MODULE main
+
+VAR 
+     y: boolean;
+     pr1 : process program(y);
+     pr2 : process program(y);
+
+ASSIGN
+	init(y) := TRUE;

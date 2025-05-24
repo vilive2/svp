@@ -1,0 +1,39 @@
+MODULE main
+VAR
+    p1 : {h1, h2, h3}; -- Pigeon 1 in hole 1, 2, or 3
+    p2 : {h1, h2, h3}; -- Pigeon 2
+    p3 : {h1, h2, h3}; -- Pigeon 3
+    p4 : {h1, h2, h3}; -- Pigeon 4
+
+ASSIGN
+    init(p1) := {h1, h2, h3};
+    init(p2) := {h1, h2, h3};
+    init(p3) := {h1, h2, h3};
+    init(p4) := {h1, h2, h3};
+
+DEFINE
+    -- Define conditions where a hole is occupied by more than one pigeon
+    hole1_overfull := ((p1 = h1) & (p2 = h1)) | 
+                      ((p1 = h1) & (p3 = h1)) | 
+                      ((p1 = h1) & (p4 = h1)) | 
+                      ((p2 = h1) & (p3 = h1)) | 
+                      ((p2 = h1) & (p4 = h1)) | 
+                      ((p3 = h1) & (p4 = h1));
+
+    hole2_overfull := ((p1 = h2) & (p2 = h2)) | 
+                      ((p1 = h2) & (p3 = h2)) | 
+                      ((p1 = h2) & (p4 = h2)) | 
+                      ((p2 = h2) & (p3 = h2)) | 
+                      ((p2 = h2) & (p4 = h2)) | 
+                      ((p3 = h2) & (p4 = h2));
+
+    hole3_overfull := ((p1 = h3) & (p2 = h3)) | 
+                      ((p1 = h3) & (p3 = h3)) | 
+                      ((p1 = h3) & (p4 = h3)) | 
+                      ((p2 = h3) & (p3 = h3)) | 
+                      ((p2 = h3) & (p4 = h3)) | 
+                      ((p3 = h3) & (p4 = h3));
+
+-- Property: At least one hole is overfull, proving the pigeonhole principle
+--SPEC AG !(hole1_overfull | hole2_overfull | hole3_overfull)
+

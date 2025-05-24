@@ -1,0 +1,1 @@
+P: ((goat = cabbage | wolf = goat) --> man = goat) U (man & cabbage & goat & wolf)

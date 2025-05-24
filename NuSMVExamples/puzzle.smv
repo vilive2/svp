@@ -1,0 +1,55 @@
+MODULE main
+
+VAR
+
+    man : boolean;
+    goat : boolean;
+    wolf : boolean;
+    cabbage : boolean;
+    carry : {g, w, c, 0};
+
+ASSIGN
+
+    init(man) := FALSE;
+    init(goat) := FALSE;
+    init(wolf) := FALSE;
+    init(cabbage) := FALSE;
+    init(carry) := 0;
+
+
+	next(man) := {TRUE, FALSE};
+
+	next(carry) := case
+						man = goat : g;
+						TRUE : carry;
+					esac union
+
+					case
+						man = wolf : w;
+						TRUE : carry;
+					esac union
+
+					case
+						man = cabbage : c;
+						TRUE : carry;
+					esac union 0;
+
+	next(goat) := case
+						next(carry) = g : next(man);
+						TRUE : goat;
+			      esac;
+
+	next(wolf) := case
+						next(carry) = w : next(man);
+						TRUE : wolf;
+				  esac;
+
+	next(cabbage) := case
+						next(carry) = c : next(man);
+						TRUE : cabbage;
+				     esac;
+
+LTLSPEC
+
+! (( (goat=cabbage | goat = wolf) -> man = goat) U (man & cabbage & goat & wolf))
+
