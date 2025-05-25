@@ -40,5 +40,16 @@ if __name__ == "__main__":
                 except Exception as e:
                     print("Error:", e)
                     print_help()
+            
+            case "display":
+                try: 
+                    A = read_nba_from_file(command[1])
+                    display(A)
+                except Exception as e:
+                    print("Error:", e)
+                    print_help()
+                    
             case _:
                 print_help()
+            
+            
