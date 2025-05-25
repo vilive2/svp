@@ -1,0 +1,24 @@
+digraph {
+	rankdir=LR
+	"" [shape=none]
+	B_p0 [shape=circle style=bold]
+	B_p1 [shape=doublecircle style=solid]
+	B_p3 [shape=doublecircle style=solid]
+	A_q0 [shape=circle style=bold]
+	A_q2 [shape=doublecircle style=solid]
+	A_q1 [shape=circle style=solid]
+	B_p2 [shape=circle style=solid]
+	"" -> B_p0
+	"" -> A_q0
+	A_q0 -> A_q1 [label=a]
+	B_p3 -> B_p0 [label=y]
+	A_q1 -> A_q1 [label=a]
+	B_p2 -> B_p3 [label=x]
+	A_q2 -> A_q2 [label=b]
+	B_p1 -> B_p1 [label=y]
+	B_p2 -> B_p2 [label=x]
+	B_p1 -> B_p2 [label=y]
+	A_q1 -> A_q2 [label=b]
+	B_p0 -> B_p1 [label=x]
+	A_q2 -> A_q0 [label=a]
+}

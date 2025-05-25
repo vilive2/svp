@@ -1,4 +1,6 @@
 from mytypes import *
+import os
+from graphviz import Digraph
 
 def nba_to_graph(A):
     V = []
@@ -61,12 +63,56 @@ def read_nba_from_file(filename):
 
     return NBA(states, alphabets, initial_states, final_states, transitions)
 
+
+def display(nba: NBA, filename="nba_display", view=True):
+
+    dot = Digraph(format='png', filename=filename)
+    dot.attr(rankdir='LR')  # Left to right orientation
+
+    # Dummy start node to point to initial states
+    dot.node("", shape="none")
+
+    for state in nba.states:
+        shape = 'doublecircle' if state in nba.final_states else 'circle'
+        style = 'bold' if state in nba.initial_states else 'solid'
+        dot.node(state, shape=shape, style=style)
+
+    for init in nba.initial_states:
+        dot.edge("", init)  # From dummy start node to initial state
+
+    for (src, dest, label) in nba.transitions:
+        dot.edge(src, dest, label=label)
+
+    output_dir = "temp"
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Full filepath including destination folder
+    filepath = os.path.join("temp", filename)
+
+    # This writes to: temp/nba.png
+    dot.render(filepath, format='png',view=view, cleanup=False)
+
+    print("States:", ', '.join(nba.states))
+    print("Alphabets:", ', '.join(nba.alphabets))
+    print("Initial states:", ', '.join(nba.initial_states))
+    print("Final states:", ', '.join(nba.final_states))
+    print("Transitions:")
+    
+    for (src, dest, label) in nba.transitions:
+        print(f"  {src} --{label}--> {dest}")
+
+        
 def print_help():
     print("""
+    ############################################################################  
+        
     Available commands:
-    empty <filename>                               #check if language of nba is empty
-    union <filename1> <filename2>                  #union of two nba
-    product <filename1> <filename2>                #Product of two nba
-    help                                           #Show this help message
+    empty <filename>                               # Check if language of nba is empty
+    union <filename1> <filename2>                  # Union of two nba
+    product <filename1> <filename2>                # Product of two nba
+    display <filename>                             # Display 
+    help                                           # Show this help message
+          
+    ############################################################################
     """)
     print(f"Note: {read_nba_from_file.__doc__}")

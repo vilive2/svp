@@ -1,0 +1,13 @@
+digraph {
+	rankdir=LR
+	"" [shape=none]
+	q2 [shape=doublecircle style=solid]
+	q1 [shape=circle style=solid]
+	q0 [shape=circle style=bold]
+	"" -> q0
+	q2 -> q0 [label=a]
+	q0 -> q1 [label=a]
+	q2 -> q2 [label=b]
+	q1 -> q2 [label=b]
+	q1 -> q1 [label=a]
+}
