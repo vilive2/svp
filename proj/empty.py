@@ -15,8 +15,7 @@ def empty(A):
     
     reachable_finals = [f for f in A.final_states if f in reachable]
     if not reachable_finals:
-        print("Language is empty: No reachable final state.")
-        return True
+        return "Empty Language Detected : No reachable final state."
     
     def dfs(s, visited, stack):
         visited.add(s)
