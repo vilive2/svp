@@ -87,10 +87,10 @@ def display(nba: NBA, filename="nba_display", view=True):
     os.makedirs(output_dir, exist_ok=True)
 
     # Full filepath including destination folder
-    filepath = os.path.join(output_dir, "nba")
+    filepath = os.path.join("temp", filename)
 
     # This writes to: temp/nba.png
-    dot.render(filepath, format='png',view=view, cleanup=True)
+    dot.render(filepath, format='png',view=view, cleanup=False)
 
     print("States:", ', '.join(nba.states))
     print("Alphabets:", ', '.join(nba.alphabets))

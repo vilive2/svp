@@ -9,7 +9,7 @@ from empty import empty
 if __name__ == "__main__":
 
     while True:
-        print("nbag>", end='', flush=True)
+        print("nbag-->", end='', flush=True)
         command = sys.stdin.readline().strip().split()
         
         match command[0]:
@@ -28,7 +28,10 @@ if __name__ == "__main__":
                 try:
                     A = read_nba_from_file(command[1])
                     B = read_nba_from_file(command[2])
-                    print(union(A, B))
+                    display(A, filename="nba_A")
+                    display(B, filename="nba_B")
+                    C = union(A, B)
+                    display(C, filename="Union of Two NBA's")
                 except Exception as e:
                     print("Error:", e)
                     print_help()
