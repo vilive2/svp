@@ -39,7 +39,10 @@ if __name__ == "__main__":
                 try:
                     A = read_nba_from_file(command[1])
                     B = read_nba_from_file(command[2])
-                    print(product(A, B))
+                    C = product(A, B)
+                    display(A, filename="A")
+                    display(B, filename="B")
+                    display(C, filename="prod_two_nba")
                 except Exception as e:
                     print("Error:", e)
                     print_help()

@@ -18,7 +18,7 @@ def product(A: NBA, B: NBA) -> NBA:
                 V3.append(Vertex(name, final, initial))
                 vertexmap[name] = V3[-1]
 
-                if initial and flag == 1:
+                if initial:
                     stack.append((v1, v2, flag))
                     visited[name] = True
     
